@@ -1,0 +1,30 @@
+{
+    "courses": [
+        {
+            "id": 1,
+            "name": "Math",
+            "description": "Mathematics is the science and study of quality, structure, space, and change. Mathematicians seek out patterns, formulate new conjectures, and establish truth by rigorous deduction from appropriately chosen axioms and definitions."
+        },
+        {
+            "id": 2,
+            "name": "Geography",
+            "description": "Geography is the study of places and the relationships between people and their environments. Geographers explore both the physical properties of Earth's surface and the human societies spread across it."
+        },
+        {
+            "id": 3,
+            "name": "History",
+            "description": "History is the study of change over time, and it covers all aspects of human society. Political, social, economic, scientific, technological, medical, cultural, intellectual, religious and military developments are all part of history."
+        },
+        {
+            "id": 4,
+            "name": "English",
+            "description": "This course aims to provide further assistance to develop students' reading strategies and abilities. It allows students to come in contact and familiar with different themes, genres of reading materials and gives them the opportunities to analyze text structure and assumptions and judgments."
+        },
+        {
+            "id": 5,
+            "name": "Physics",
+            "description": "Physics is the study of matter and energy, from the smallest scale, as in the study of elementary particles, to the largest, as in the study of the formation and evolution of stars and galaxies. In this sense, physics is the science that underlies all other sciences."
+        }
+    ]
+
+}
