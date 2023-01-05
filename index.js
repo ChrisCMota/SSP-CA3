@@ -1,6 +1,7 @@
 const express = require('express');
 const jsonfile = require('jsonfile');
 const { make } = require('simple-body-validator');
+const cors = require('cors');
 
 const server = express();
 
@@ -8,6 +9,12 @@ server.use(express.json());
 
 const FILE = 'courses.json';
 
+server.use((req, res, next) => {
+    res.header("Access-Control-Allow-Origin", "*");
+    res.header("Access-Control-Allow-Methods", 'GET,PUT,POST,DELETE');
+    server.use(cors());
+    next();
+});
 
 server.get('/courses', (req, res) => {
     jsonfile.readFile(FILE, (err, obj) => {
@@ -55,7 +62,6 @@ server.get('/courses/:index', (req, res) => {
 });
 
 server.post('/courses', (req, res) => {
-
     const rules = {
         name: 'required|string',
         description: 'required|string'
@@ -118,7 +124,6 @@ server.delete('/courses/:index', (req, res) => {
 });
 
 server.put('/courses/:index', (req, res) => {
-
     const rules = {
         name: 'required|string',
         description: 'required|string'
