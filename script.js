@@ -12,7 +12,7 @@ const backendUrl = "http://localhost:3000/courses/"
 function getAll() {
     
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", backendUrl, false ); // false for synchronous request
+    xmlHttp.open( "GET", backendUrl, false );
     xmlHttp.send( null );
     return JSON.parse(xmlHttp.responseText);
 }
@@ -20,7 +20,7 @@ function getAll() {
 function getById(id) {
     
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "GET", backendUrl + id, false ); // false for synchronous request
+    xmlHttp.open( "GET", backendUrl + id, false );
     xmlHttp.send( null );
     return JSON.parse(xmlHttp.responseText);
 }
@@ -28,8 +28,9 @@ function getById(id) {
 function add(name, description) {
     
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "POST", backendUrl, false ); // false for synchronous request
-    xmlHttp.send( { name, description } );
+    xmlHttp.open( "POST", backendUrl, false );
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send(JSON.stringify({ name: name, description: description }));
     return JSON.parse(xmlHttp.responseText);
 }
 
@@ -38,8 +39,16 @@ function add(name, description) {
 function deleteById(id) {
     
     var xmlHttp = new XMLHttpRequest();
-    xmlHttp.open( "DELETE", backendUrl + id, false ); // false for synchronous request
+    xmlHttp.open( "DELETE", backendUrl + id, false );
     xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+function updateById(name, description) {
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "PUT", backendUrl + id, false );
+    xmlHttp.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
+    xmlHttp.send(JSON.stringify({ name: name, description: description }));
     return xmlHttp.responseText;
 }
 
@@ -76,3 +85,50 @@ function deleteItem(index) {
     deleteById(index);
     loadItens();
 }
+
+function editItem(index) {
+
+    openModal(true, index)
+}
+
+function openModal(edit = false, index = 0) {
+    modal.classList.add('active')
+  
+    modal.onclick = e => {
+      if (e.target.className.indexOf('modal-container') !== -1) {
+        modal.classList.remove('active')
+      }
+    }
+  
+    if (edit) {
+      course = getById(index);
+      sName.value = course.name
+      sDescription.value = course.description
+      id = index
+    } else {
+      sName.value = ''
+      sDescription.value = ''
+    }
+    
+}
+
+btnSave.onclick = e => {
+  
+    if (sName.value == '' || sDescription.value == '') {
+      return;
+    }
+  
+    e.preventDefault();
+  
+    if (id !== undefined) {
+        console.log(sName.value);
+        console.log(sDescription.value);
+        updateById(sName.value, sDescription.value);
+    } else {
+      add( sName.value, sDescription.value);
+    }
+
+    modal.classList.remove('active');
+    loadItens();
+    id = undefined;
+  }
